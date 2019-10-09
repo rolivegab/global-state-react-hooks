@@ -1,26 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Counter from 'components/Counter';
+import GlobalState, { useGlobalState } from 'context';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Son = () => {
+  const {
+    grandFather: {
+      father: {
+        son: {
+          increment,
+          value
+        }
+      }
+    }
+  } = React.useContext(GlobalState)()
+
+  return <Counter {...{increment, value}} />
 }
+
+const Father = () => {
+  const {
+    grandFather: {
+      father: {
+        increment,
+        value
+      }
+    }
+  } = React.useContext(GlobalState)()
+
+  return <Counter {...{increment, value}}>
+    <Son />
+  </Counter>
+}
+
+const GrandFather = () => {
+  const {
+    grandFather: {
+      increment,
+      value,
+    }
+  } = React.useContext(GlobalState)()
+
+  return <Counter {...{increment, value}}>
+    <Father />
+  </Counter>
+}
+
+const App = () => (
+  <GlobalState.Provider value={useGlobalState}>
+    <GrandFather />
+  </GlobalState.Provider>
+)
 
 export default App;
