@@ -1,16 +1,12 @@
-import React from 'react'
-import useFather from './father'
+import father from './father'
+import {createStateLink} from '@hookstate/core'
 
-const useGrandFather = () => {
-    const [value, setValue] = React.useState(0)
-    const father = useFather()
-    const increment = React.useCallback(() => setValue(value + 1), [value])
+const state = createStateLink(0, s => ({
+  counter: s.get(),
+  increment: () => s.set(p => p + 1)
+}));
 
-    return {
-        value,
-        increment,
-        father
-    }
+export default {
+  state,
+  father
 }
-
-export default useGrandFather

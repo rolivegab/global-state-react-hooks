@@ -1,13 +1,9 @@
-import React from 'react'
+import {createStateLink, useStateLinkUnmounted } from '@hookstate/core'
 
-const useSon = () => {
-    const [value, setValue] = React.useState(0)
-    const increment = React.useCallback(() => setValue(value + 1), [value])
+const value = createStateLink(0)
+const setValue = useStateLinkUnmounted(value)
+const increment = () => setValue.set(p => p + 1)
 
-    return {
-        value,
-        increment
-    }
+export default {
+  value, increment
 }
-
-export default useSon

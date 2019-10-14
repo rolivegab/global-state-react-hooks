@@ -1,14 +1,7 @@
-import {createContext} from 'react'
-import useGrandFather from './grandFather'
+import grandFather from './grandFather'
 
-export const useGlobalState = () => {
-    const grandFather = useGrandFather()
-
-    return {
-        grandFather
-    }
+const GlobalContext = {
+  grandFather
 }
 
-const GlobalState = createContext(useGlobalState)
-
-export default GlobalState
+export default GlobalContext

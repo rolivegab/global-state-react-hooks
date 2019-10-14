@@ -1,17 +1,15 @@
 import React from 'react'
-import { Container } from './style'
 
 interface Props {
-    increment: () => void,
-    value: number
+  increment: () => void,
+  counter: number
 }
 
-const Counter: React.FC<Props> = ({increment, value, children}) => {
-    return <>
-        {value}{' '}
-        <button onClick={increment}>increment</button>
-        <Container>{children}</Container>
-    </>
+const Counter: React.FC<Props> = ({ increment, counter }) => {
+  return <>
+    {counter}{' '}
+    <button onClick={increment}>increment</button>
+  </>
 }
 
 export default Counter
