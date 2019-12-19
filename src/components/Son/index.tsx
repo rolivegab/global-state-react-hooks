@@ -1,11 +1,21 @@
 import React, { memo } from 'react'
-import { useStateLink } from "@hookstate/core"
 import GlobalContext from "context"
 import Counter from 'components/Counter'
 
+const {
+  grandFather: {
+    father: {
+      son: {
+        useIncrement,
+        useValue
+      }
+    }
+  }
+} = GlobalContext
+
 const Son = () => {
-  const counter = useStateLink(GlobalContext.grandFather.father.son.value).value
-  const increment = GlobalContext.grandFather.father.son.increment
+  const increment = useIncrement()
+  const counter = useValue()
 
   return <>
     <Counter {...{ increment, counter }} />

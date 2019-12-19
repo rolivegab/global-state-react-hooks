@@ -1,12 +1,21 @@
 import son from './son'
-import {createStateLink} from '@hookstate/core'
+import { useCallback, useState } from 'react'
+import constate from 'constate'
 
-const state = createStateLink(0, s => ({
-  counter: s.value,
-  increment: () => s.set(p => p + 1)
-}))
+const [FatherProvider, useValue, useIncrement] = constate(
+  () => {
+    const [value, setValue] = useState(0)
+    const increment = useCallback(() => setValue(p => p + 1), [])
+
+    return {value, increment, son}
+  },
+  p => p.value,
+  p => p.increment
+)
 
 export default {
-  state,
+  FatherProvider,
+  useValue,
+  useIncrement,
   son
 }

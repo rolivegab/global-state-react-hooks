@@ -1,18 +1,30 @@
-import React, { memo } from 'react'
-import { useStateLink } from '@hookstate/core'
+import React from 'react'
 import GlobalContext from 'context'
 import Counter from 'components/Counter'
 import Father from 'components/Father'
 
+const {
+  grandFather: {
+    useIncrement,
+    useCount,
+    father: {
+      FatherProvider
+    }
+  }
+} = GlobalContext
+
 const GrandFather = () => {
-  const { counter, increment } = useStateLink(GlobalContext.grandFather.state)
+  const counter = useCount()
+  const increment = useIncrement()
 
   return <>
     <Counter {...{ counter, increment }} />
     {Math.random()}
     <br/>
-    <Father />
+    <FatherProvider>
+      <Father />
+    </FatherProvider>
   </>
 }
 
-export default memo(GrandFather)
+export default GrandFather
